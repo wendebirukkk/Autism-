@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Support - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/fa29c51f67.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-heart"></i>
+                    <span>Autism Support</span>
+                </div>
+                <div class="user-menu">
+                    <span id="user-name">Welcome!</span>
+                    <button onclick="logout()" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="#videos" class="nav-item active" onclick="showSection('videos')">
+                        <i class="fas fa-video"></i>
+                        <span>Support Videos</span>
+                    </a>
+                    <a href="#photos" class="nav-item" onclick="showSection('photos')">
+                        <i class="fas fa-images"></i>
+                        <span>Photo Gallery</span>
+                    </a>
+                    <a href="#chat" class="nav-item" onclick="showSection('chat')">
+                        <i class="fas fa-comments"></i>
+                        <span>Community Chat</span>
+                    </a>
+                    <a href="#resources" class="nav-item" onclick="showSection('resources')">
+                        <i class="fas fa-book"></i>
+                        <span>Resources</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content-area">
+                <!-- Videos Section -->
+                <section id="videos" class="content-section active">
+                    <div class="section-header">
+                        <h2>Support Videos</h2>
+                        <button class="btn-primary" onclick="showVideoForm()">
+                            <i class="fas fa-plus"></i> Share Video
+                        </button>
+                    </div>
+
+                    <!-- Video Upload Form -->
+                    <div id="video-form" class="video-form" style="display: none;">
+                        <div class="form-card">
+                            <h3>Share a Support Video</h3>
+                            <div class="input-group">
+                                <label>Video Title</label>
+                                <input type="text" id="video-title" placeholder="Enter video title">
+                            </div>
+                            <div class="input-group">
+                                <label>Video URL (YouTube)</label>
+                                <input type="url" id="video-url" placeholder="https://youtube.com/...">
+                            </div>
+                            <div class="input-group">
+                                <label>Description</label>
+                                <textarea id="video-description" placeholder="Describe this video..."></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button onclick="postVideo()" class="btn-primary">Post Video</button>
+                                <button onclick="hideVideoForm()" class="btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Videos Grid -->
+                    <div id="videos-grid" class="videos-grid">
+                        <!-- Videos will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Photo Gallery Section -->
+                <section id="photos" class="content-section">
+                    <div class="section-header">
+                        <h2>Community Photo Gallery</h2>
+                        <button class="btn-primary" onclick="showPhotoForm()">
+                            <i class="fas fa-plus"></i> Share Photo
+                        </button>
+                    </div>
+
+                    <!-- Photo Upload Form -->
+                    <div id="photo-form" class="photo-form" style="display: none;">
+                        <div class="form-card">
+                            <h3>Share a Photo</h3>
+                            <div class="input-group">
+                                <label>Photo Title</label>
+                                <input type="text" id="photo-title" placeholder="Enter photo title">
+                            </div>
+                            <div class="input-group">
+                                <label>Description</label>
+                                <textarea id="photo-description" placeholder="Describe this photo..."></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Upload Photo</label>
+                                <input type="file" id="photo-file" accept="image/*" onchange="previewImage(event)">
+                                <small class="file-info">Supported formats: JPG, PNG, GIF, WEBP (Max 5MB)</small>
+                            </div>
+                            <div class="image-preview" id="image-preview" style="display: none;">
+                                <img id="preview-img" src="#" alt="Preview">
+                            </div>
+                            <div class="form-actions">
+                                <button onclick="uploadPhoto()" class="btn-primary">Share Photo</button>
+                                <button onclick="hidePhotoForm()" class="btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Photos Grid -->
+                    <div class="photos-grid" id="photos-grid">
+                        <!-- Photos will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Chat Section -->
+                <section id="chat" class="content-section">
+                    <div class="section-header">
+                        <h2>Community Chat</h2>
+                        <div class="online-users">
+                            <i class="fas fa-circle online-dot"></i>
+                            <span id="online-count">0</span> online
+                        </div>
+                    </div>
+
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Messages will appear here -->
+                        </div>
+
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Resources Section -->
+                <section id="resources" class="content-section">
+                    <div class="section-header">
+                        <h2>Helpful Resources</h2>
+                        <button class="btn-primary" onclick="showDocumentForm()">
+                            <i class="fas fa-upload"></i> Upload Document
+                        </button>
+                    </div>
+
+                    <!-- Document Upload Form -->
+                    <div id="document-form" class="document-form" style="display: none;">
+                        <div class="form-card">
+                            <h3>Upload Document</h3>
+                            <div class="input-group">
+                                <label>Document Title</label>
+                                <input type="text" id="document-title" placeholder="Enter document title">
+                            </div>
+                            <div class="input-group">
+                                <label>Description</label>
+                                <textarea id="document-description" placeholder="Describe this document..."></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Category</label>
+                                <select id="document-category">
+                                    <option value="educational">Educational Material</option>
+                                    <option value="therapy">Therapy Resources</option>
+                                    <option value="parenting">Parenting Guide</option>
+                                    <option value="research">Research Paper</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Upload Document</label>
+                                <input type="file" id="document-file" accept=".pdf,.doc,.docx,.txt,.ppt,.pptx">
+                                <small class="file-info">Supported formats: PDF, DOC, DOCX, TXT, PPT, PPTX (Max 10MB)</small>
+                            </div>
+                            <div class="form-actions">
+                                <button onclick="uploadDocument()" class="btn-primary">Upload Document</button>
+                                <button onclick="hideDocumentForm()" class="btn-secondary">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resources Filter -->
+                    <div class="resources-filter">
+                        <button class="filter-btn active" onclick="filterResources('all')">All</button>
+                        <button class="filter-btn" onclick="filterResources('educational')">Educational</button>
+                        <button class="filter-btn" onclick="filterResources('therapy')">Therapy</button>
+                        <button class="filter-btn" onclick="filterResources('parenting')">Parenting</button>
+                        <button class="filter-btn" onclick="filterResources('research')">Research</button>
+                        <button class="filter-btn" onclick="filterResources('other')">Other</button>
+                    </div>
+
+                    <!-- Document Resources -->
+                    <div class="documents-section">
+                        <h3>Community Documents</h3>
+                        <div class="documents-grid" id="documents-grid">
+                            <!-- Uploaded documents will appear here -->
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div id="photo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-image-container">
+                <img id="modal-image" src="" alt="Full size photo">
+            </div>
+            <div class="modal-info">
+                <h3 id="modal-title"></h3>
+                <p id="modal-description"></p>
+                <small id="modal-uploader"></small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Viewer Modal -->
+    <div id="document-modal" class="modal">
+        <div class="modal-content document-modal-content">
+            <span class="close-modal" onclick="closeDocumentModal()">&times;</span>
+            <div class="document-viewer-header">
+                <h3 id="document-modal-title"></h3>
+                <div class="document-viewer-actions">
+                    <button onclick="downloadCurrentDocument()" class="btn-primary">
+                        <i class="fas fa-download"></i> Download
+                    </button>
+                    <button onclick="closeDocumentModal()" class="btn-secondary">Close</button>
+                </div>
+            </div>
+            <div class="document-viewer" id="document-viewer">
+                <!-- Document content will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

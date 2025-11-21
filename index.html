@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autism Support - Login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/fa29c51f67.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <div class="auth-header">
+                <i class="fas fa-heart"></i>
+                <h2>Autism Support Network</h2>
+                <p>Connect, Share, and Support</p>
+            </div>
+
+            <form id="login-form">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" id="login-email" required>
+                    <span id="email-error" class="error-message"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter your password" id="login-password" required>
+                    <span id="password-error" class="error-message"></span>
+                </div>
+
+                <button type="button" onclick="login()">Login</button>
+                
+                <div class="auth-links">
+                    <p>Don't have an account? <a href="#" onclick="showRegister()">Sign up</a></p>
+                </div>
+            </form>
+
+            <form id="register-form" style="display: none;">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your full name" id="register-name" required>
+                    <span id="register-name-error" class="error-message"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter your email" id="register-email" required>
+                    <span id="register-email-error" class="error-message"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" placeholder="Create password" id="register-password" required>
+                    <span id="register-password-error" class="error-message"></span>
+                </div>
+
+                <div class="input-group">
+                    <label>Confirm Password</label>
+                    <input type="password" placeholder="Confirm password" id="register-confirm-password" required>
+                    <span id="register-confirm-error" class="error-message"></span>
+                </div>
+
+                <button type="button" onclick="register()">Create Account</button>
+                
+                <div class="auth-links">
+                    <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+                </div>
+            </form>
+
+            <span id="auth-error" class="error-message"></span>
+        </div>
+    </div>
+    
+    <script src="auth.js"></script>
+</body>
+</html>
